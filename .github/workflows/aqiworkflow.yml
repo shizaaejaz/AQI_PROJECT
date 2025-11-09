@@ -9,6 +9,8 @@ on:
 jobs:
   run-aqi-and-commit:
     runs-on: ubuntu-latest
+    env:
+      HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
 
     steps:
       # 1️⃣ Checkout your repo
