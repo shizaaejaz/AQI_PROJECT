@@ -1,0 +1,4 @@
+date,day_name,aqi_min,aqi_max,temperature,humidity,wind_speed
+2025-11-09 09:43:39.142354,Today,492,502,22,42,2
+2025-11-10 09:43:39.142354,Tomorrow,492,502,22,42,2
+2025-11-11 09:43:39.142354,Day After,492,502,22,42,2
