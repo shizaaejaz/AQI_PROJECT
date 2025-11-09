@@ -578,7 +578,12 @@ subprocess.run(["pip", "install", "--upgrade", "hopsworks"])
 
 import hopsworks
 
-project = hopsworks.login()         # you already did this
+import os
+import hopsworks
+
+api_key = os.getenv("HOPSWORKS_API_KEY")
+project = hopsworks.login(api_key_value=api_key)
+       
 fs = project.get_feature_store()    # get your feature store handle
 
 
