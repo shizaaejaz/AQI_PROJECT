@@ -573,10 +573,7 @@ plt.show()
 # get_ipython().system('pip install hopsworks --upgrade')
 subprocess.run(["pip", "install", "--upgrade", "hopsworks"])
 
-# In[609]:
 
-
-import hopsworks
 
 import os
 import hopsworks
@@ -585,20 +582,21 @@ api_key = os.getenv("HOPSWORKS_API_KEY")
 project = hopsworks.login(api_key_value=api_key)
        
 fs = project.get_feature_store()    # get your feature store handle
-dataset_api = project.get_dataset_api()
-dataset_name = "aqi_predictions"
+# dataset_api = project.get_dataset_api()
+# dataset_name = "aqi_predictions"
 
-# Save the latest_predictions.csv to Hopsworks
-try:
-    dataset_api.delete(f"{dataset_name}/latest_predictions.csv")
-except Exception:
-    pass  # ignore if not exists
+# # Save the latest_predictions.csv to Hopsworks
+# try:
+#     dataset_api.delete(f"{dataset_name}/latest_predictions.csv")
+# except Exception:
+#     pass  # ignore if not exists
 
-# Upload new CSV
-dataset_api.upload("latest_predictions.csv",dataset_name)
-print("✅ latest_predictions.csv uploaded successfully!")
+# # Upload new CSV
+# dataset_api.upload("latest_predictions.csv",dataset_name)
+# print("✅ latest_predictions.csv uploaded successfully!")
 
-# In[610]:
+import pandas as pd
+df = pd.read_csv("karachi_weather_5hourly.csv", parse_dates=[0], index_col=False)   # or your latest processed file
 
 
 import pandas as pd
@@ -2170,4 +2168,25 @@ def get_forecast(df_capped, model_path="best_random_forest.pkl",save_csv=True):
 
 forecast_data = get_forecast(df_capped, model_path="best_random_forest.pkl", save_csv=True)
 print("✅ latest_predictions.csv is ready for app.py")
-   
+
+
+import hopsworks
+import os
+
+api_key = os.getenv("HOPSWORKS_API_KEY")
+project = hopsworks.login(api_key_value=api_key)
+dataset_api = project.get_dataset_api()
+dataset_name = "aqi_predictions"
+
+file_path = "latest_predictions.csv"
+
+# Delete old file if exists
+try:
+    dataset_api.delete(f"{dataset_name}/{file_path}")
+except Exception:
+    pass
+
+# Upload new CSV
+dataset_api.upload_to_dataset(file_path=file_path, dataset_name=dataset_name)
+print("✅ latest_predictions.csv uploaded successfully!")
+
