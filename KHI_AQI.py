@@ -589,8 +589,14 @@ dataset_api = project.get_dataset_api()
 dataset_name = "aqi_predictions"
 
 # Save the latest_predictions.csv to Hopsworks
-dataset_api.upload("latest_predictions.csv", dataset_name, mode="overwrite")
-print("✅ CSV uploaded to Hopsworks successfully!")
+ry:
+    dataset_api.delete(f"{dataset_name}/latest_predictions.csv")
+except Exception:
+    pass  # ignore if not exists
+
+# Upload new CSV
+dataset_api.upload(file_path="latest_predictions.csv", dataset_name=dataset_name)
+print("✅ latest_predictions.csv uploaded successfully!")
 
 # In[610]:
 
