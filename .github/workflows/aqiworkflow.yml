@@ -32,6 +32,7 @@ jobs:
       # 4️⃣ Run AQI pipeline
       - name: Run KHI_AQI.py
         run: python KHI_AQI.py
+        continue-on-error: false 
 
       - name: Commit and push CSVs
         run: |
