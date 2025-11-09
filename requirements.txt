@@ -9,4 +9,4 @@ openpyxl
 hopsworks
 confluent-kafka
 streamlit
-pip install "hopsworks==4.2.*"
+hopsworks==4.2.*
