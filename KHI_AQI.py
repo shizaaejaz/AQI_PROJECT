@@ -2187,7 +2187,7 @@ except Exception:
     pass
 
 # Upload new CSV
-dataset_api.upload("latest_predictions.csv", "aqi_predictions")
+dataset_api.upload("latest_predictions.csv", "aqi_predictions",overwrite=True)
 
 
 print("✅ latest_predictions.csv uploaded successfully!")
