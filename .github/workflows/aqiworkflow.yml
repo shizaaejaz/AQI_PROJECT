@@ -33,15 +33,13 @@ jobs:
       - name: Run KHI_AQI.py
         run: python KHI_AQI.py
 
-      # 5️⃣ Commit and push updated CSVs
       - name: Commit and push CSVs
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add karachi_weather_5hourly.csv latest_predictions.csv
           git diff --cached --quiet || git commit -m "Automated AQI update"
-          git push origin HEAD:main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/shizaaejaz/AQI_PROJECT.git HEAD:main
+
 
           
