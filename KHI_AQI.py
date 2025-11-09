@@ -595,7 +595,7 @@ except Exception:
     pass  # ignore if not exists
 
 # Upload new CSV
-dataset_api.upload(file_path="latest_predictions.csv", dataset_name=dataset_name)
+dataset_api.upload("latest_predictions.csv",dataset_name)
 print("✅ latest_predictions.csv uploaded successfully!")
 
 # In[610]:
