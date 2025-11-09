@@ -392,15 +392,16 @@ project = hopsworks.login(api_key_secret_name="HOPSWORKS_API_KEY")
 dataset_api = project.get_dataset_api()
 
 # Download latest CSV to a DataFrame
-latest_csv_path = dataset_api.download("latest_predictions.csv", "aqi_predictions")
 try:
+    latest_csv_path = dataset_api.download("latest_predictions.csv", "aqi_predictions", overwrite=True)
     forecast_df = pd.read_csv(latest_csv_path)
     forecast_df["date"] = pd.to_datetime(forecast_df["date"])
-except FileNotFoundError:
-    print(f"❌ latest_predictions.csv not found in Hopsworks!")
+except Exception as e:
+    print(f"❌ Error downloading CSV: {e}")
     forecast_df = pd.DataFrame(columns=[
         "date","day_name","aqi_min","aqi_max","temperature","humidity","wind_speed"
     ])
+
 # df = pd.read_csv(latest_csv_path)
 
 # # Read CSV safely
