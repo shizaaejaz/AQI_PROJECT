@@ -589,7 +589,7 @@ dataset_api = project.get_dataset_api()
 dataset_name = "aqi_predictions"
 
 # Save the latest_predictions.csv to Hopsworks
-ry:
+try:
     dataset_api.delete(f"{dataset_name}/latest_predictions.csv")
 except Exception:
     pass  # ignore if not exists
