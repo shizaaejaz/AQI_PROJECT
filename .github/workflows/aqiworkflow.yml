@@ -3,7 +3,7 @@ name: AQI Automation Pipeline
 # When to run
 on:
   schedule:
-    - cron: "0 * * * *"   # Run every hour; change cron as needed
+    - cron: "0 */5 * * *"    # Run every hour; change cron as needed
   workflow_dispatch:       # Allows manual trigger
 
 jobs:
