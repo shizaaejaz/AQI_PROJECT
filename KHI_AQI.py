@@ -585,7 +585,12 @@ api_key = os.getenv("HOPSWORKS_API_KEY")
 project = hopsworks.login(api_key_value=api_key)
        
 fs = project.get_feature_store()    # get your feature store handle
+dataset_api = project.get_dataset_api()
+dataset_name = "aqi_predictions"
 
+# Save the latest_predictions.csv to Hopsworks
+dataset_api.upload("latest_predictions.csv", dataset_name, mode="overwrite")
+print("✅ CSV uploaded to Hopsworks successfully!")
 
 # In[610]:
 
