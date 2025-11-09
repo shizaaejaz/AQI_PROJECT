@@ -4,8 +4,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
 import joblib
-from datetime import timedelta
-import pandas as pd
+import hopsworks  
 # ✅ Import the function from your Python file
 
 
@@ -387,18 +386,32 @@ CITY = "Karachi, Pakistan"
 LAT, LON = 24.8607, 67.0011
 current_time = datetime.now().strftime("%I:%M %p")
 
-# CSV path
-csv_file = "latest_predictions.csv"
+# csv_file = "latest_predictions.csv"
+# Hopsworks login
+project = hopsworks.login(api_key_secret_name="HOPSWORKS_API_KEY")
+dataset_api = project.get_dataset_api()
 
-# Read CSV safely
+# Download latest CSV to a DataFrame
+latest_csv_path = dataset_api.download("latest_predictions.csv", "aqi_predictions")
 try:
-    forecast_df = pd.read_csv(csv_file)
+    forecast_df = pd.read_csv(latest_csv_path)
     forecast_df["date"] = pd.to_datetime(forecast_df["date"])
 except FileNotFoundError:
-    print(f"❌ {csv_file} not found! Run KHI_AQI.py first.")
+    print(f"❌ latest_predictions.csv not found in Hopsworks!")
     forecast_df = pd.DataFrame(columns=[
-        "date","day_name","aqi_min","aqi_max","temperature","humidity","windspeed"
+        "date","day_name","aqi_min","aqi_max","temperature","humidity","wind_speed"
     ])
+# df = pd.read_csv(latest_csv_path)
+
+# # Read CSV safely
+# try:
+#     forecast_df = pd.read_csv(csv_file)
+#     forecast_df["date"] = pd.to_datetime(forecast_df["date"])
+# except FileNotFoundError:
+#     print(f"❌ {csv_file} not found! Run KHI_AQI.py first.")
+#     forecast_df = pd.DataFrame(columns=[
+#         "date","day_name","aqi_min","aqi_max","temperature","humidity","windspeed"
+#     ])
 
 # ===============================
 # 🔹 Current values for front-end
