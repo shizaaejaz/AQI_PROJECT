@@ -28,6 +28,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install "hopsworks==4.2.*"
 
       # 4️⃣ Run AQI pipeline
       - name: Run KHI_AQI.py
